@@ -139,12 +139,12 @@ make build
 ```
 
 ## Web UIs 🌐
-The master node can be accessed on:
+- The master node can be accessed on:
 `localhost:9090`. 
-The spark history server is accessible through:
+- The spark history server is accessible through:
 `localhost:18080`.
 
-
+---
 # Running the Code (Spark on Hadoop YARN Cluster)
 
 Before running, check the virtual disk size that Docker assigns to the container. In my case, I needed to assign:
