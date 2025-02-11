@@ -1,6 +1,6 @@
 # About the Repo 
 
-This repo is a clone of the "pyspark-playground" project by Marin (@mrn-aglic) and other contributors. It is used for learning and experimenting with Spark on Hadoop YARN, leveraging Docker for containerization. 🚀
+This repository is based on the "pyspark-playground" project by Marin (@mrn-aglic) and other contributors. It has been cloned and modified for my personal learning and experimentation.... 🚀
 
 You can view the original repository here: [pyspark-playground](https://github.com/mrn-aglic/pyspark-playground). 🔗
 
