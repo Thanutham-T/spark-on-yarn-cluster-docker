@@ -195,7 +195,7 @@ make submit-yarn-cluster-terra-gen MODE=cluster CORES_PER_EXECUTOR=2 MEMORY_PER_
 
 **2. Sort the data**
 ```shell
-make submit-yarn-cluster-terra-sort MODE=cluster CORES_PER_EXECUTOR=2 MEMORY_PER_EXECUTOR=2g DATA_INPUT=data_gen DATA_OUTPUT=data_sort
+make submit-yarn-cluster-terra-sort MODE=cluster CORES_PER_EXECUTOR=2 MEMORY_PER_EXECUTOR=2g DATA_INPUT=data_gen DATA_SORT_OUTPUT=data_sort
 ```
 
 **3. Validate the data**
