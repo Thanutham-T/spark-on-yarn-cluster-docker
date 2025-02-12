@@ -203,7 +203,7 @@ to validate the data using the command below
 ```shell
 make submit-yarn-cluster-terra-validate MODE=cluster CORES_PER_EXECUTOR=2 MEMORY_PER_EXECUTOR=2g CHECK_DATA=data_sort
 ```
-to check result of validation you can run
+to check result of validation if you run on client mode you can just ```grep -i "Result:``` follow command above using pipe, but if you run on cluster mode you can using the command below
 ```shell
 make terra-validate-results APPLICATION_ID=<your_application_id>
 ```
