@@ -57,6 +57,7 @@ rm-results:
 	rm -r book_data/results/*
 
 MODE?=client
+NUMER_OF_EXECUTOR?=3
 CORES_PER_EXECUTOR?=1
 MEMORY_PER_EXECUTOR?=1g
 
@@ -98,6 +99,18 @@ submit-yarn-cluster-terra-validate:
 
 terra-validate-results:
 	docker exec da-spark-yarn-master yarn logs -applicationId $(APPLICATION_ID) | grep -i "Result:"
+
+submit-yarn-cluster-ridge-regression:
+	docker exec da-spark-yarn-master spark-submit \
+	--master yarn \
+	--deploy-mode $(MODE) \
+	--executor-memory $(MEMORY_PER_EXECUTOR) \
+	--num-executors $(NUMER_OF_EXECUTOR) \
+	--executor-cores $(CORES_PER_EXECUTOR) \
+	./apps/ridge_regression/ridge_regression_v2.py
+
+submit-yarn-cluster-ridge-regression-results:
+	docker exec da-spark-yarn-master hdfs dfs -cat /out/ridge_regression_results/part-00000
 
 da-spark-master-bash:
 	docker exec -it da-spark-yarn-master bash
