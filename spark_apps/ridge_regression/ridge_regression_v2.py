@@ -3,6 +3,7 @@ from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression
 from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
 from pyspark.ml.evaluation import RegressionEvaluator
+import numpy as np
 
 # Initialize Spark session
 spark = SparkSession.builder.appName("RidgeRegressionCalCOFI").getOrCreate()
@@ -27,8 +28,11 @@ train_data, test_data = data.randomSplit([0.8, 0.2], seed=42)
 # Define Ridge regression model
 lr = LinearRegression(featuresCol="features", labelCol=label_col, elasticNetParam=0.0)  # Ridge (L2 only)
 
+# Generate alpha values (regParam) from 0.0 to 0.05 with a step of 0.01
+alpha_values = np.arange(0.0, 0.05, 0.01).tolist()  # Converts to a Python list
+
 # Define parameter grid for alpha (regParam)
-param_grid = ParamGridBuilder().addGrid(lr.regParam, [0.0, 0.01, 0.05, 0.1, 0.5]).build()
+param_grid = ParamGridBuilder().addGrid(lr.regParam, alpha_values).build()
 
 # Set up cross-validator for k-fold CV
 cv = CrossValidator(estimator=lr,
