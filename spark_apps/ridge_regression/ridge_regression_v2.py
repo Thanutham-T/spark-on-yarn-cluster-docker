@@ -9,7 +9,7 @@ spark = SparkSession.builder.appName("RidgeRegressionCalCOFI").getOrCreate()
 sc = spark.sparkContext
 
 # Load data from HDFS
-data_path = "hdfs://spark-yarn-master:9000/data/CalCOFI_processed_data.csv"
+data_path = "hdfs://spark-yarn-master:9000/opt/spark/data/data_model/CalCOFI_processed_data.csv"
 df = spark.read.csv(data_path, header=True, inferSchema=True)
 
 # Define feature columns and target
@@ -63,8 +63,14 @@ output = [
     f"Intercept: {best_model.intercept}"
 ]
 
-# Write output to HDFS
+# Delete existing output directory if it exists
 output_path = "hdfs://spark-yarn-master:9000/out/ridge_regression_results"
+fs = sc._jvm.org.apache.hadoop.fs.FileSystem.get(sc._jsc.hadoopConfiguration())
+hdfs_path = sc._jvm.org.apache.hadoop.fs.Path(output_path)
+if fs.exists(hdfs_path):
+    fs.delete(hdfs_path, True)  # True enables recursive deletion
+
+# Write output to HDFS
 sc.parallelize(output).coalesce(1).saveAsTextFile(output_path)
 
 # Stop Spark session
