@@ -211,7 +211,7 @@ make terra-validate-results APPLICATION_ID=<your_application_id>
 
 ### For Ridge Regression benchmark on Spark
 
-**1. Pull data using lfs**
+**1. Pull data using lfs (Pull before running docker-compose)**
 ```shell
 git lfs pull
 ```
