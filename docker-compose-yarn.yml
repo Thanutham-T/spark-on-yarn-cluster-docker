@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   spark-yarn-master:
     container_name: da-spark-yarn-master
