@@ -186,7 +186,8 @@ simplest one is:
 ```shell
 make build-yarn
 ```
-#### For TeraSort benchmark for Spark
+
+### For TeraSort benchmark on Spark
 
 **1. Generate data**
 ```shell
@@ -208,6 +209,17 @@ to check result of validation if you run on client mode you can just ```grep -i 
 make terra-validate-results APPLICATION_ID=<your_application_id>
 ```
 
+### For Ridge Regression benchmark on Spark
+
+**1. Pull data using lfs**
+```shell
+git lfs pull
+```
+
+**2. Submit Ridge Regression benchmark**
+```shell
+make submit-yarn-cluster-ridge-regression MODE=cluster MEMORY_PER_EXECUTOR=2g NUMER_OF_EXECUTOR=3 CORES_PER_EXECUTOR=2
+```
 
 ## Web UIs 🌐
 You can access different web UIs. The one I found the most 
