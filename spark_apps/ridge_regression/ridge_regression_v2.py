@@ -1,3 +1,4 @@
+import time
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import VectorAssembler
 from pyspark.ml.regression import LinearRegression
@@ -40,8 +41,15 @@ cv = CrossValidator(estimator=lr,
                     evaluator=RegressionEvaluator(labelCol=label_col, metricName="rmse"),
                     numFolds=5)
 
+# Start timer
+start_time = time.time()
+
 # Fit the model with cross-validation
 cv_model = cv.fit(train_data)
+
+# End timer
+end_time = time.time()
+training_time = end_time - start_time
 
 # Get the best model
 best_model = cv_model.bestModel
@@ -60,6 +68,7 @@ rmse, r2 = evaluate_model(best_model, test_data)
 
 # Prepare output as a list of strings
 output = [
+    f"Training Time (seconds): {training_time}",
     f"Best Alpha: {best_alpha}",
     f"Best RMSE: {rmse}",
     f"Best R²: {r2}",
