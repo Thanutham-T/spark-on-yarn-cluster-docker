@@ -66,6 +66,15 @@ def evaluate_model(model, data):
 
 rmse, r2 = evaluate_model(best_model, test_data)
 
+# Estimate FLOPs and calculate GFLOPs
+N = df.count()  # Get actual dataset size from DataFrame
+d = len(feature_names)  # Number of features
+k = 5  # Number of CV folds
+num_alphas = len(alpha_values)
+
+total_flops = k * num_alphas * (N * d**2 + d**3)  # FLOPs estimation
+gflops = total_flops / (training_time * 10**9)
+
 # Prepare output as a list of strings
 output = [
     f"Training Time (seconds): {training_time}",
@@ -73,7 +82,8 @@ output = [
     f"Best RMSE: {rmse}",
     f"Best R²: {r2}",
     f"Best Coefficients: {best_model.coefficients}",
-    f"Intercept: {best_model.intercept}"
+    f"Intercept: {best_model.intercept}",
+    f"Estimated GFLOPs: {gflops}"
 ]
 
 # Delete existing output directory if it exists
